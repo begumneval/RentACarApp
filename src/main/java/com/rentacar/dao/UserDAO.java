@@ -35,4 +35,33 @@ public class UserDAO {
 
         return null; // Kullanıcı bulunamazsa null döner
     }
+
+    public User findByEmail(String email) {
+        String sql = "SELECT * FROM users WHERE email = ?";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, email);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return new User(
+                        rs.getInt("id"),
+                        rs.getString("name"),
+                        rs.getString("email"),
+                        rs.getString("password"),
+                        rs.getString("type"),     // önce type
+                        rs.getInt("age")          // sonra age
+                );
+            }
+
+        } catch (SQLException e) {
+            System.out.println("❌ Kullanıcı sorgulanırken hata oluştu: " + e.getMessage());
+        }
+
+        return null;
+    }
+
+
 }

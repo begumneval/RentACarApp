@@ -122,7 +122,11 @@ mvn exec:java -Dexec.mainClass="com.rentacar.app.Main"
 * `app` → kullanıcı arayüzü (`Main` sınıfı)
 
 ---
+## 🔧 Exception Handling
 
+Uygulamada exception handling, özel tanımlı UserNotFoundException sınıfı ile gerçekleştirilmiştir.
+Hatalar, service katmanında fırlatılıp Main sınıfında kontrollü şekilde yakalanır.
+---
 ## 📌 Notlar
 
 * SHA-256 ile şifrelenmiş giriş kullanılır

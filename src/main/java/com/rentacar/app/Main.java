@@ -1,17 +1,3 @@
-/* package com.rentacar.app;
-
-import com.rentacar.util.PasswordUtil;
-
-public class Main {
-    public static void main(String[] args) {
-        String plainPassword = "123456";
-        String hashed = PasswordUtil.hashPassword(plainPassword);
-        System.out.println("Hashlenmiş şifre: " + hashed);
-    }
-}
-
- */
-
 package com.rentacar.app;
 
 import com.rentacar.model.User;
@@ -19,6 +5,8 @@ import com.rentacar.service.RentalService;
 import com.rentacar.service.UserService;
 import com.rentacar.service.VehicleService;
 import com.rentacar.model.Vehicle;
+import com.rentacar.exception.UserNotFoundException;
+
 
 
 import java.util.Scanner;
@@ -43,10 +31,10 @@ public class Main {
             System.out.print("Şifre: ");
             String password = scanner.nextLine();
 
-            currentUser = userService.login(email, password);
-
-            if (currentUser == null) {
-                System.out.println("❌ Giriş başarısız. Lütfen tekrar deneyin.\n");
+            try {
+                currentUser = userService.login(email, password);
+            } catch (UserNotFoundException e) {
+                System.out.println("❌ " + e.getMessage());
             }
         }
 
